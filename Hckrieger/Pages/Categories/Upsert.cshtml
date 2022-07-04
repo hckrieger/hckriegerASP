@@ -1,0 +1,43 @@
+﻿@page
+@model Hckrieger.Pages.Categories.UpsertModel
+@if (Model.Category.CategoryId == 0)
+{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+} else
+{
+    ViewData["Title"] = "Edit Category: " + Model.Category.Name;
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+@(Model.Category.CategoryId != 0 ? "Edit Category: " + Model.Category.Name : "Create Category")
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            @if (Model.Category.CategoryId != 0)
+            {
+                <input type="hidden" asp-for="Category.CategoryId" />
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Category.Name" class="control-label"></label>
+                <input asp-for="Category.Name" class="form-control" />
+                <span asp-validation-for="Category.Name" class="text-danger"></span>
+            </div><br />
+            <div class="form-group">
+
+                <input type="submit" value=@(Model.Category.CategoryId != 0 ? "Update" : "Create") class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

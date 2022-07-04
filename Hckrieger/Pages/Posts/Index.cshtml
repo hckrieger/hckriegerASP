@@ -1,0 +1,63 @@
+﻿@page
+@model Hckrieger.Pages.Posts.IndexModel
+@using System.Text.RegularExpressions;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<partial name="~/Pages/Shared/_BlogNavPartial.cshtml" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Post[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post[0].DatePublished)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Post)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatePublished)
+                </td>
+                <td>
+                    <form method="post" style="display: inline">
+                        @if (!item.Visible)
+                        {
+                            <span style="color: darkred;">Hidden</span>
+                            <span> - </span>
+                            <button asp-page-handler="Visibility" asp-route-id=@item.PostId class="link-primary" style="font-size: 13px;">
+                                Show
+                            </button> <span>|</span>
+                        } else
+                        {
+                            <span style="color: darkgreen">Visible</span>
+                            <span> - </span>
+                            <button asp-page-handler="Visibility" asp-route-id=@item.PostId class="link-primary" style="font-size: 13px;">
+                                Hide
+                            </button> <span>|</span>
+                        }
+                    </form>
+
+                    <a asp-page="./ManageCategories" asp-route-id="@item.PostId">Categories</a> |
+                    <a asp-page="./ManageTags" asp-route-id="@item.PostId">Tags</a> |
+                    <a asp-page="./Upsert" asp-route-id="@item.PostId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PostId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PostId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

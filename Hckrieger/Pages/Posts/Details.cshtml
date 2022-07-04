@@ -1,0 +1,67 @@
+﻿@page
+@model Hckrieger.Pages.Posts.DetailsModel
+
+@{
+    ViewData["Title"] = Html.DisplayFor(m => m.Post.Title);
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <a class="btn btn-md btn-info" asp-page="./Upsert" asp-route-id="@Model.Post.PostId">Edit</a> 
+        <a class="btn btn-md btn-info" asp-page="./Index">Back to List</a>
+    </div>
+   <hr />
+}
+
+<article class="post post-@Model.Post.PostId">
+    <div class="post-header">
+        <h6>@Html.DisplayFor(m => m.Post.DatePublished)</h6>
+        <h2>@Html.DisplayFor(m => m.Post.Title)</h2>
+        <h5>By Hunter Krieger</h5>
+        @if (Model.Post.PostCategory?.Count > 1)
+        {
+            <h6>Categories: 
+
+                
+                    @foreach(var item in Model.Post.PostCategory)
+                    {
+                        <span>@item.Category?.Name</span>
+                        if (@item.Category?.CategoryId != Model.Post.PostCategory.Last().CategoryId)
+                        {
+                            <span style="margin-left: -5px;">, </span>
+                        }
+                    }
+                
+
+            </h6>
+        } else if (Model.Post.PostCategory?.Count == 1)
+        {
+            <h6>Category: @Html.DisplayFor(m => m.Post.PostCategory.First().Category.Name)</h6>
+        } 
+        
+    </div>
+    <hr />
+    <div class="post-content">
+        @Html.Raw(Model.Post.Content)
+    </div>
+    @if (Model.Post.PostTag?.Count > 0)
+    {
+        <hr />
+        <div class="tags">
+            <h5>
+                <strong>tags: </strong>
+            </h5>
+
+            @foreach (var item in Model.Post.PostTag.OrderBy(m => m.Tag?.Name))
+            {
+                <p>@item.Tag?.Name</p>
+            }
+        </div>
+    }
+</article>
+<br />
+<h5 class="text-center">
+    <a asp-page="Details" asp-route-id="@Model.Post.PostId">back to top</a>
+</h5>

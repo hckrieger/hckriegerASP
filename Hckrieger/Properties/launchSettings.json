@@ -1,0 +1,29 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:29962",
+      "sslPort": 44344
+    }
+  },
+  "profiles": {
+    "Hckrieger": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        " DATABASE_CONNECTION_STRING": "Data Source=SQL5108.site4now.net;Initial Catalog=db_a7d1f1_hckriegerdb;User Id=db_a7d1f1_hckriegerdb_admin;Password=F5Vg6NJ35E4rrkp"
+      },
+      "applicationUrl": "https://localhost:7134;http://localhost:5134",
+      "dotnetRunMessages": true
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

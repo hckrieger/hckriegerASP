@@ -1,0 +1,39 @@
+﻿@page
+@model Hckrieger.Pages.Tags.UpsertModel
+@if (Model.Tag.TagId == 0)
+{
+    ViewData["Title"] = "Create Tag";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+} else
+{
+    ViewData["Title"] = "Edit Tag: " + Model.Tag.Name;
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<h1>@(Model.Tag.TagId == 0 ? "Create Tag" : "Edit Tag: " + Model.Tag.Name)</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            @if (Model.Tag.TagId != 0)
+            {
+                <input type="hidden" asp-for="Tag.TagId" />
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Tag.Name" class="control-label"></label>
+                <input asp-for="Tag.Name" class="form-control" />
+                <span asp-validation-for="Tag.Name" class="text-danger"></span>
+            </div><br />
+            <div class="form-group">
+                <input type="submit" value=@(Model.Tag.TagId == 0 ? "Create" : "Edit") class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
